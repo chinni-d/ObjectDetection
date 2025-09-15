@@ -7,7 +7,7 @@ export default function DetectionPage() {
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold tracking-tight sm:text-4xl text-balance">Object Detection</h1>
           <p className="mt-4 text-lg text-muted-foreground text-pretty">
-            Upload a video or use your camera for real-time object detection
+           Use your camera for real-time object detection
           </p>
         </div>
         <DetectionInterface />

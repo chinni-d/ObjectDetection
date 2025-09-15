@@ -6,6 +6,7 @@ import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
+import { Tiles } from "@/components/tiles"
 import { Suspense } from "react"
 import "./globals.css"
 
@@ -23,12 +24,20 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <div className="min-h-screen flex flex-col">
-            <Suspense fallback={<div>Loading...</div>}>
-              <Navigation />
-              <main className="flex-1">{children}</main>
-              <Footer />
-            </Suspense>
+          <div className="min-h-screen flex flex-col relative">
+            {/* Tiles Background - Higher z-index to appear above hero backgrounds */}
+            <div className="fixed inset-0 z-10 pointer-events-none">
+              <Tiles />
+            </div>
+            
+            {/* Main Content */}
+            <div className="relative z-20 min-h-screen flex flex-col">
+              <Suspense fallback={<div>Loading...</div>}>
+                <Navigation />
+                <main className="flex-1 relative">{children}</main>
+                <Footer />
+              </Suspense>
+            </div>
           </div>
         </ThemeProvider>
         <Analytics />

@@ -10,7 +10,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-background to-muted/20 min-h-[80vh] flex items-center justify-center py-16 sm:py-20">
+      <section className="relative overflow-hidden bg-gradient-to-b from-background/60 to-muted/5 min-h-[80vh] flex items-center justify-center py-16 sm:py-20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 w-full">
           <div className="mx-auto max-w-4xl text-center">
             <div className="flex justify-center items-center min-h-[120px] mb-8">

@@ -67,7 +67,7 @@ export function Navigation() {
               <span className="text-xl font-bold text-foreground">VisionAI</span>
             </Link>
           </div>
-          <div className="flex lg:hidden items-center gap-2">
+          <div className="flex lg:hidden items-center gap-4">
             <ThemeToggle />
             <Button
               variant="ghost"
