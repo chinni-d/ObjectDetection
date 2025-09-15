@@ -72,7 +72,7 @@ export function DetectionInterface() {
         }
         
         // Direct URL to the live stream
-        img.src = "http://localhost:8000/live-camera-stream"
+        img.src = "https://objectdetection-cyafhnf8fehpdzb2.centralindia-01.azurewebsites.net/live-camera-stream"
       }
       
     } catch (error) {
@@ -103,7 +103,7 @@ export function DetectionInterface() {
     
     try {
       // Call backend to stop camera and release resources
-      const stopResponse = await fetch("http://localhost:8000/stop-camera", {
+      const stopResponse = await fetch("https://objectdetection-cyafhnf8fehpdzb2.centralindia-01.azurewebsites.net/stop-camera", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
