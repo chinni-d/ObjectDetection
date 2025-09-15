@@ -6,7 +6,7 @@ import { motion } from "framer-motion"
 export function Tiles() {
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden">
-      <div className="w-full h-full opacity-25 dark:opacity-35">
+      <div className="w-full h-full opacity-25 dark:opacity-25">
         <svg width="100%" height="100%" className="absolute inset-0">
           <defs>
             <pattern

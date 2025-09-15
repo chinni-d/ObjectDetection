@@ -142,7 +142,7 @@ export function DetectionInterface() {
               onClick={isStreamActive ? stopDetection : startDetection}
               variant={isStreamActive ? "destructive" : "default"}
               size="lg"
-              className="gap-2"
+              className="gap-2 cursor-pointer"
               disabled={isLoading}
             >
               {isLoading ? (

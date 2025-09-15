@@ -18,7 +18,7 @@ export function ThemeToggle() {
   }
 
   return (
-    <div className="flex items-center bg-muted/50 dark:bg-muted/30 rounded-full p-0.5 border border-border/50">
+    <div className="flex items-center bg-muted/50 dark:bg-gray-100/10 rounded-full p-0.5 border border-border/50">
       <Button
         variant="ghost"
         size="sm"
