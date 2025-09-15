@@ -212,26 +212,11 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="relative bg-primary/5 dark:bg-black/90 border border-primary/30 dark:border-red-500/30 rounded-xl p-8 overflow-hidden dark:backdrop-blur-sm">
-            {/* Grid background for dark mode only */}
-            <div className="absolute inset-0 dark:block hidden">
-              <div 
-                className="absolute inset-0"
-                style={{
-                  backgroundImage: `
-                    linear-gradient(to right, rgb(239 68 68 / 0.2) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgb(239 68 68 / 0.2) 1px, transparent 1px)
-                  `,
-                  backgroundSize: '30px 30px'
-                }} 
-              />
-            </div>
-
-            {/* Content */}
-            <div className="relative z-10 space-y-8">
+          <div className="bg-primary/5 border border-primary/30 rounded-xl p-8">
+            <div className="space-y-8">
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-2 rounded-lg bg-primary/20 dark:bg-red-500/20">
-                  <Code className="h-6 w-6 text-primary dark:text-red-400" />
+                <div className="p-2 rounded-lg bg-primary/20">
+                  <Code className="h-6 w-6 text-primary" />
                 </div>
                 <h3 className="text-2xl font-bold text-foreground">Technology Stack</h3>
               </div>
@@ -248,7 +233,7 @@ export default function AboutPage() {
                       scale: 1.05,
                       transition: { duration: 0.2 }
                     }}
-                    className="space-y-4 p-4 rounded-lg bg-primary/5 dark:bg-red-500/5 border border-primary/20 dark:border-red-500/20 backdrop-blur-sm hover:bg-primary/10 dark:hover:bg-red-500/10 hover:border-primary/40 dark:hover:border-red-500/40 transition-all duration-300"
+                    className="space-y-4 p-4 rounded-lg bg-primary/5 border border-primary/20 hover:bg-primary/10 hover:border-primary/40 transition-all duration-300"
                   >
                     <motion.div 
                       className="flex items-center gap-3"
@@ -256,14 +241,14 @@ export default function AboutPage() {
                       transition={{ duration: 0.2 }}
                     >
                       <motion.div 
-                        className="p-2 rounded-lg bg-primary/20 dark:bg-red-500/20"
+                        className="p-2 rounded-lg bg-primary/20"
                         whileHover={{ rotate: 360, scale: 1.1 }}
                         transition={{ duration: 0.3 }}
                       >
-                        {category.category === 'Frontend' && <Globe className="h-5 w-5 text-primary dark:text-red-400" />}
-                        {category.category === 'AI & ML' && <Brain className="h-5 w-5 text-primary dark:text-red-400" />}
-                        {category.category === 'Backend' && <Cpu className="h-5 w-5 text-primary dark:text-red-400" />}
-                        {category.category === 'Infrastructure' && <Zap className="h-5 w-5 text-primary dark:text-red-400" />}
+                        {category.category === 'Frontend' && <Globe className="h-5 w-5 text-primary" />}
+                        {category.category === 'AI & ML' && <Brain className="h-5 w-5 text-primary" />}
+                        {category.category === 'Backend' && <Cpu className="h-5 w-5 text-primary" />}
+                        {category.category === 'Infrastructure' && <Zap className="h-5 w-5 text-primary" />}
                       </motion.div>
                       <h4 className="text-base font-semibold text-foreground">{category.category}</h4>
                     </motion.div>
@@ -279,7 +264,7 @@ export default function AboutPage() {
                             x: 10,
                             transition: { duration: 0.2 }
                           }}
-                          className="text-muted-foreground text-sm cursor-pointer hover:text-primary dark:hover:text-red-400"
+                          className="text-muted-foreground text-sm cursor-pointer hover:text-primary"
                         >
                           {tech.name}
                         </motion.div>
