@@ -67,13 +67,13 @@ export function Navigation() {
               <span className="text-xl font-bold text-foreground">VisionAI</span>
             </Link>
           </div>
-          <div className="flex lg:hidden items-center gap-4">
+          <div className="flex lg:hidden items-center gap-6">
             <ThemeToggle />
             <Button
               variant="ghost"
               size="sm"
               onClick={() => setMobileMenuOpen(true)}
-              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 mr-2"
             >
               <span className="sr-only">Open main menu</span>
               <Menu className="h-6 w-6" aria-hidden="true" />
@@ -130,15 +130,15 @@ export function Navigation() {
         }`}>
           <div className="flex h-full flex-col overflow-y-auto bg-background shadow-2xl border-l">
             {/* Header */}
-            <div className="px-6 py-6 border-b border-border">
+            <div className="px-4 py-4 border-b border-border">
               <div className="flex items-center justify-between">
                 <Link 
                   href="/" 
                   className="-m-1.5 p-1.5 flex items-center gap-2" 
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <Eye className="h-6 w-6 text-primary" />
-                  <span className="text-lg font-bold">VisionAI</span>
+                  <Eye className="h-5 w-5 text-primary" />
+                  <span className="text-base font-bold">VisionAI</span>
                 </Link>
                 <Button
                   variant="ghost"
@@ -153,14 +153,14 @@ export function Navigation() {
             </div>
             
             {/* Navigation links */}
-            <div className="flex-1 px-6 py-6">
+            <div className="flex-1 px-4 py-4">
               <div className="space-y-1">
                 {navigation.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      "block rounded-lg px-4 py-3 text-base font-medium transition-all duration-200 hover:bg-muted hover:translate-x-1",
+                      "block rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 hover:bg-muted hover:translate-x-1",
                       pathname === item.href 
                         ? "text-primary bg-primary/10 border-l-2 border-primary" 
                         : "text-foreground hover:text-primary",
@@ -173,8 +173,8 @@ export function Navigation() {
               </div>
               
               {/* Action button */}
-              <div className="mt-8 pt-6 border-t border-border">
-                <Button asChild className="w-full h-12 text-base font-medium">
+              <div className="mt-6 pt-4 border-t border-border">
+                <Button asChild className="w-full h-10 text-sm font-medium">
                   <Link href="/detection" onClick={() => setMobileMenuOpen(false)}>
                     Start Detection
                   </Link>
