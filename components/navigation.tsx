@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -17,98 +17,173 @@ const navigation = [
 export function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const navRef = useRef<HTMLDivElement>(null)
+  const [underlineStyle, setUnderlineStyle] = useState({
+    width: 0,
+    left: 0,
+    opacity: 0,
+  })
+
+  useEffect(() => {
+    const updateUnderline = () => {
+      if (!navRef.current) return
+
+      const activeLink = navRef.current.querySelector(`[data-path="${pathname}"]`) as HTMLElement
+      if (activeLink) {
+        const navRect = navRef.current.getBoundingClientRect()
+        const linkRect = activeLink.getBoundingClientRect()
+        
+        setUnderlineStyle({
+          width: linkRect.width,
+          left: linkRect.left - navRect.left,
+          opacity: 1,
+        })
+      } else {
+        setUnderlineStyle(prev => ({ ...prev, opacity: 0 }))
+      }
+    }
+
+    updateUnderline()
+    
+    // Add a small delay to ensure the DOM has updated
+    const timeoutId = setTimeout(updateUnderline, 100)
+    
+    // Update on window resize
+    window.addEventListener('resize', updateUnderline)
+    
+    return () => {
+      clearTimeout(timeoutId)
+      window.removeEventListener('resize', updateUnderline)
+    }
+  }, [pathname])
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
-        <div className="flex lg:flex-1">
-          <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
-            <Eye className="h-8 w-8 text-primary" />
-            <span className="text-xl font-bold text-foreground">VisionAI</span>
-          </Link>
-        </div>
-        <div className="flex lg:hidden items-center gap-2">
-          <ThemeToggle />
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => setMobileMenuOpen(true)}
-            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
-          >
-            <span className="sr-only">Open main menu</span>
-            <Menu className="h-6 w-6" aria-hidden="true" />
-          </Button>
-        </div>
-        <div className="hidden lg:flex lg:gap-x-12">
-          {navigation.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={cn(
-                "text-sm font-semibold leading-6 transition-colors hover:text-primary",
-                pathname === item.href ? "text-primary" : "text-muted-foreground",
-              )}
-            >
-              {item.name}
+    <>
+      <header className="sticky top-0 z-40 w-full border-b border-border/80 dark:border-white/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
+          <div className="flex lg:flex-1">
+            <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
+              <Eye className="h-8 w-8 text-primary" />
+              <span className="text-xl font-bold text-foreground">VisionAI</span>
             </Link>
-          ))}
-        </div>
-        <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-4">
-          <ThemeToggle />
-          <Button asChild>
-            <Link href="/detection">Start Detection</Link>
-          </Button>
-        </div>
-      </nav>
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden" role="dialog" aria-modal="true">
-          <div className="fixed inset-0 z-40 bg-black/20" onClick={() => setMobileMenuOpen(false)}></div>
-          <div className="fixed inset-y-0 right-0 z-50 w-3/5 overflow-y-auto bg-background px-6 py-6 shadow-xl border-l">
-            <div className="flex items-center justify-between">
-              <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-                <Eye className="h-8 w-8 text-primary" />
-                <span className="text-xl font-bold">VisionAI</span>
-              </Link>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setMobileMenuOpen(false)}
-                className="-m-2.5 rounded-md p-2.5"
+          </div>
+          <div className="flex lg:hidden items-center gap-2">
+            <ThemeToggle />
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setMobileMenuOpen(true)}
+              className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5"
+            >
+              <span className="sr-only">Open main menu</span>
+              <Menu className="h-6 w-6" aria-hidden="true" />
+            </Button>
+          </div>
+          <div className="hidden lg:flex lg:gap-x-6 relative" ref={navRef}>
+            {navigation.map((item) => (
+              <Link
+                key={item.name}
+                href={item.href}
+                data-path={item.href}
+                className={cn(
+                  "text-sm font-semibold leading-4 transition-colors hover:text-primary relative py-2 px-1",
+                  pathname === item.href ? "text-primary" : "text-muted-foreground",
+                )}
               >
-                <span className="sr-only">Close menu</span>
-                <X className="h-6 w-6" aria-hidden="true" />
-              </Button>
+                {item.name}
+              </Link>
+            ))}
+            
+            {/* Animated underline */}
+            <div
+              className="absolute bottom-0 h-0.5 bg-primary transition-all duration-300 ease-out"
+              style={{
+                width: `${underlineStyle.width}px`,
+                left: `${underlineStyle.left}px`,
+                opacity: underlineStyle.opacity,
+              }}
+            />
+          </div>
+          <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-4">
+            <ThemeToggle />
+            <Button asChild>
+              <Link href="/detection">Start Detection</Link>
+            </Button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile menu overlay */}
+      <div className={`lg:hidden fixed inset-0 z-50 ${mobileMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`} role="dialog" aria-modal="true">
+        {/* Background overlay with smooth fade */}
+        <div 
+          className={`fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300 ease-out ${
+            mobileMenuOpen ? 'opacity-100' : 'opacity-0'
+          }`}
+          onClick={() => setMobileMenuOpen(false)}
+          aria-hidden="true"
+        />
+        
+        {/* Sliding panel from right with 60% width */}
+        <div className={`fixed inset-y-0 right-0 w-3/5 transform transition-transform duration-300 ease-out ${
+          mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}>
+          <div className="flex h-full flex-col overflow-y-auto bg-background shadow-2xl border-l">
+            {/* Header */}
+            <div className="px-6 py-6 border-b border-border">
+              <div className="flex items-center justify-between">
+                <Link 
+                  href="/" 
+                  className="-m-1.5 p-1.5 flex items-center gap-2" 
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  <Eye className="h-6 w-6 text-primary" />
+                  <span className="text-lg font-bold">VisionAI</span>
+                </Link>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="-m-2.5 rounded-md p-2.5 hover:bg-muted"
+                >
+                  <span className="sr-only">Close menu</span>
+                  <X className="h-5 w-5" aria-hidden="true" />
+                </Button>
+              </div>
             </div>
-            <div className="mt-6 flow-root">
-              <div className="-my-6 divide-y divide-border">
-                <div className="space-y-2 py-6">
-                  {navigation.map((item) => (
-                    <Link
-                      key={item.name}
-                      href={item.href}
-                      className={cn(
-                        "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 hover:bg-muted",
-                        pathname === item.href ? "text-primary" : "text-foreground",
-                      )}
-                      onClick={() => setMobileMenuOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  ))}
-                </div>
-                <div className="py-6">
-                  <Button asChild className="w-full">
-                    <Link href="/detection" onClick={() => setMobileMenuOpen(false)}>
-                      Start Detection
-                    </Link>
-                  </Button>
-                </div>
+            
+            {/* Navigation links */}
+            <div className="flex-1 px-6 py-6">
+              <div className="space-y-1">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className={cn(
+                      "block rounded-lg px-4 py-3 text-base font-medium transition-all duration-200 hover:bg-muted hover:translate-x-1",
+                      pathname === item.href 
+                        ? "text-primary bg-primary/10 border-l-2 border-primary" 
+                        : "text-foreground hover:text-primary",
+                    )}
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+              
+              {/* Action button */}
+              <div className="mt-8 pt-6 border-t border-border">
+                <Button asChild className="w-full h-12 text-base font-medium">
+                  <Link href="/detection" onClick={() => setMobileMenuOpen(false)}>
+                    Start Detection
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
         </div>
-      )}
-    </header>
+      </div>
+    </>
   )
 }
