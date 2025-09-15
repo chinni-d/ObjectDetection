@@ -5,13 +5,13 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Navigation } from "@/components/navigation"
+import { Footer } from "@/components/footer"
 import { Suspense } from "react"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: "VisionAI - Advanced Object Detection",
+  title: "VisionAI",
   description: "Professional video-based object detection powered by AI",
-  generator: "v0.app",
 }
 
 export default function RootLayout({
@@ -23,10 +23,13 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Navigation />
-            <main>{children}</main>
-          </Suspense>
+          <div className="min-h-screen flex flex-col">
+            <Suspense fallback={<div>Loading...</div>}>
+              <Navigation />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </Suspense>
+          </div>
         </ThemeProvider>
         <Analytics />
       </body>
