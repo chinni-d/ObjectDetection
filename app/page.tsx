@@ -116,14 +116,15 @@ export default function HomePage() {
           <div className="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-none">
             <div className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-8 lg:max-w-none lg:grid-cols-3">
               <AnimatedCard delay={0.1}>
-                <Card className="p-6 h-full hover:shadow-2xl transition-shadow duration-300 border-2 border-border/50 dark:border-white/10 dark:bg-card/50 hover:border-primary/20">
-                  <CardHeader className="pb-4">
-                    <CardTitle className="flex items-center gap-x-3 text-base font-semibold leading-7">
-                      <motion.div
-                        whileHover={{ rotate: 360, scale: 1.2 }}
+                <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300 h-full">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <motion.div 
+                        className="p-2 rounded-lg bg-primary/10"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <Zap className="h-5 w-5 flex-none text-primary" />
+                        <Zap className="h-5 w-5 text-primary" />
                       </motion.div>
                       <motion.span
                         whileHover={{ x: 5 }}
@@ -133,14 +134,14 @@ export default function HomePage() {
                       </motion.span>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="flex-1">
+                  <CardContent>
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, delay: 0.3 }}
                       viewport={{ once: true }}
                     >
-                      <CardDescription className="text-sm leading-6">
+                      <CardDescription className="text-muted-foreground leading-relaxed">
                         Process video streams in real-time with minimal latency. Our optimized algorithms ensure smooth
                         performance even with high-resolution content.
                       </CardDescription>
@@ -150,14 +151,15 @@ export default function HomePage() {
               </AnimatedCard>
               
               <AnimatedCard delay={0.2}>
-                <Card className="p-6 h-full hover:shadow-2xl transition-shadow duration-300 border-2 border-border/50 dark:border-white/10 dark:bg-card/50 hover:border-primary/20">
-                  <CardHeader className="pb-4">
-                    <CardTitle className="flex items-center gap-x-3 text-base font-semibold leading-7">
-                      <motion.div
-                        whileHover={{ rotate: 360, scale: 1.2 }}
+                <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300 h-full">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <motion.div 
+                        className="p-2 rounded-lg bg-primary/10"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <Shield className="h-5 w-5 flex-none text-primary" />
+                        <Shield className="h-5 w-5 text-primary" />
                       </motion.div>
                       <motion.span
                         whileHover={{ x: 5 }}
@@ -167,14 +169,14 @@ export default function HomePage() {
                       </motion.span>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="flex-1">
+                  <CardContent>
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, delay: 0.4 }}
                       viewport={{ once: true }}
                     >
-                      <CardDescription className="text-sm leading-6">
+                      <CardDescription className="text-muted-foreground leading-relaxed">
                         Achieve industry-leading detection accuracy with our advanced neural networks trained on millions of
                         diverse videos and scenarios.
                       </CardDescription>
@@ -184,14 +186,15 @@ export default function HomePage() {
               </AnimatedCard>
               
               <AnimatedCard delay={0.3}>
-                <Card className="p-6 h-full hover:shadow-2xl transition-shadow duration-300 border-2 border-border/50 dark:border-white/10 dark:bg-card/50 hover:border-primary/20">
-                  <CardHeader className="pb-4">
-                    <CardTitle className="flex items-center gap-x-3 text-base font-semibold leading-7">
-                      <motion.div
-                        whileHover={{ rotate: 360, scale: 1.2 }}
+                <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300 h-full">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-3">
+                      <motion.div 
+                        className="p-2 rounded-lg bg-primary/10"
+                        whileHover={{ rotate: 360, scale: 1.1 }}
                         transition={{ duration: 0.3 }}
                       >
-                        <Cpu className="h-5 w-5 flex-none text-primary" />
+                        <Cpu className="h-5 w-5 text-primary" />
                       </motion.div>
                       <motion.span
                         whileHover={{ x: 5 }}
@@ -201,14 +204,14 @@ export default function HomePage() {
                       </motion.span>
                     </CardTitle>
                   </CardHeader>
-                  <CardContent className="flex-1">
+                  <CardContent>
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.6, delay: 0.5 }}
                       viewport={{ once: true }}
                     >
-                      <CardDescription className="text-sm leading-6">
+                      <CardDescription className="text-muted-foreground leading-relaxed">
                         Choose from various pre-trained models optimized for different use cases, from general object
                         detection to specialized applications.
                       </CardDescription>
@@ -253,7 +256,7 @@ export default function HomePage() {
           <div className="mx-auto mt-16 max-w-3xl sm:mt-20 lg:mt-24 lg:max-w-6xl">
             <div className="grid grid-cols-1 gap-y-8 lg:grid-cols-3 lg:gap-x-10 lg:gap-y-0">
               <AnimatedStepCard delay={0.1}>
-                <Card className="relative h-full border-2 border-border/50 dark:border-white/10 dark:bg-card/50 hover:border-primary/20 hover:shadow-2xl transition-all duration-300">
+                <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300 h-full">
                   <CardHeader>
                     <div className="flex items-center gap-4">
                       <AnimatedNumber className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground font-semibold text-lg shadow-lg">
@@ -276,7 +279,7 @@ export default function HomePage() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: 0.4 }}
                     >
-                      <CardDescription className="text-sm leading-6">
+                      <CardDescription className="text-muted-foreground leading-relaxed">
                         Connect your camera or webcam to begin live streaming. Our platform captures real-time video feeds
                         with optimized performance for continuous detection.
                       </CardDescription>
@@ -286,7 +289,7 @@ export default function HomePage() {
               </AnimatedStepCard>
 
               <AnimatedStepCard delay={0.2}>
-                <Card className="relative h-full border-2 border-border/50 dark:border-white/10 dark:bg-card/50 hover:border-primary/20 hover:shadow-2xl transition-all duration-300">
+                <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300 h-full">
                   <CardHeader>
                     <div className="flex items-center gap-4">
                       <AnimatedNumber className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground font-semibold text-lg shadow-lg">
@@ -309,7 +312,7 @@ export default function HomePage() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: 0.5 }}
                     >
-                      <CardDescription className="text-sm leading-6">
+                      <CardDescription className="text-muted-foreground leading-relaxed">
                         Advanced AI models process your live stream instantly, detecting and tracking objects frame-by-frame
                         with sub-second latency and high precision.
                       </CardDescription>
@@ -319,7 +322,7 @@ export default function HomePage() {
               </AnimatedStepCard>
 
               <AnimatedStepCard delay={0.3}>
-                <Card className="relative h-full border-2 border-border/50 dark:border-white/10 dark:bg-card/50 hover:border-primary/20 hover:shadow-2xl transition-all duration-300">
+                <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300 h-full">
                   <CardHeader>
                     <div className="flex items-center gap-4">
                       <AnimatedNumber className="flex h-12 w-12 items-center justify-center rounded-xl bg-primary text-primary-foreground font-semibold text-lg shadow-lg">
@@ -342,7 +345,7 @@ export default function HomePage() {
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: 0.6 }}
                     >
-                      <CardDescription className="text-sm leading-6">
+                      <CardDescription className="text-muted-foreground leading-relaxed">
                         Watch live detection overlays on your stream with real-time alerts, object tracking, and instant
                         notifications when specific objects are detected.
                       </CardDescription>
