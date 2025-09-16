@@ -17,7 +17,7 @@ export function DetectionInterface() {
   // Check camera status from backend
   const checkCameraStatus = async () => {
     try {
-      const response = await fetch("http://localhost:8000/camera-status")
+      const response = await fetch("https://objectdetection-cyafhnf8fehpdzb2.centralindia-01.azurewebsites.net/camera-status")
       if (response.ok) {
         const data = await response.json()
         console.log("📹 Camera status:", data)
@@ -38,7 +38,7 @@ export function DetectionInterface() {
     
     try {
       // First activate the camera on backend
-      const startResponse = await fetch("http://localhost:8000/start-camera", {
+      const startResponse = await fetch("https://objectdetection-cyafhnf8fehpdzb2.centralindia-01.azurewebsites.net/start-camera", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
