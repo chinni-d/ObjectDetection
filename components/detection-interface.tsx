@@ -399,7 +399,15 @@ export function DetectionInterface() {
         {/* Processed Feed with Detections */}
         <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300 h-full">
           <CardHeader>
-            <CardTitle className="text-base sm:text-lg">AI Detections</CardTitle>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-base sm:text-lg">AI Detections</CardTitle>
+              {isStreamActive && (
+                <div className="bg-red-600 text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-medium flex items-center gap-1 sm:gap-2">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse"></div>
+                  LIVE DETECTION
+                </div>
+              )}
+            </div>
           </CardHeader>
           <CardContent>
             <div className="relative bg-black rounded-lg overflow-hidden" style={{aspectRatio: "4/3"}}>
@@ -408,13 +416,6 @@ export function DetectionInterface() {
                 className="w-full h-full object-cover"
                 style={{ display: isStreamActive && isConnected ? "block" : "none" }}
               />
-              
-              {isStreamActive && (
-                <div className="absolute top-2 sm:top-4 left-2 sm:left-4 bg-red-600 text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-medium flex items-center gap-1 sm:gap-2">
-                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse"></div>
-                  LIVE DETECTION
-                </div>
-              )}
               
               {!isStreamActive && (
                 <div className="absolute inset-0 flex items-center justify-center text-white">
