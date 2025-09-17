@@ -8,6 +8,7 @@ import { MobileThemeMeta } from "@/components/mobile-theme-meta"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Tiles } from "@/components/tiles"
+import { FullscreenWrapper } from "@/components/fullscreen-wrapper"
 import { Suspense } from "react"
 import "./globals.css"
 
@@ -50,21 +51,23 @@ export default function RootLayout({
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <MobileThemeMeta />
-          <div className="min-h-screen flex flex-col relative">
-            {/* Tiles Background - Higher z-index to appear above hero backgrounds */}
-            <div className="fixed inset-0 z-10 pointer-events-none">
-              <Tiles />
+          <FullscreenWrapper>
+            <div className="min-h-screen flex flex-col relative">
+              {/* Tiles Background - Higher z-index to appear above hero backgrounds */}
+              <div className="fixed inset-0 z-10 pointer-events-none">
+                <Tiles />
+              </div>
+              
+              {/* Main Content */}
+              <div className="relative z-20 min-h-screen flex flex-col">
+                <Suspense fallback={<div>Loading...</div>}>
+                  <Navigation />
+                  <main className="flex-1 relative">{children}</main>
+                  <Footer />
+                </Suspense>
+              </div>
             </div>
-            
-            {/* Main Content */}
-            <div className="relative z-20 min-h-screen flex flex-col">
-              <Suspense fallback={<div>Loading...</div>}>
-                <Navigation />
-                <main className="flex-1 relative">{children}</main>
-                <Footer />
-              </Suspense>
-            </div>
-          </div>
+          </FullscreenWrapper>
         </ThemeProvider>
         <Analytics />
       </body>

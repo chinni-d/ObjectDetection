@@ -196,4 +196,37 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary) / 0.6);
   }
+
+  /* Fullscreen styles */
+  .fullscreen-active {
+    transition: all 0.3s ease;
+  }
+
+  /* Hide scrollbars in fullscreen for cleaner experience */
+  :fullscreen {
+    scrollbar-width: none; /* Firefox */
+  }
+
+  :fullscreen::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+
+  /* Smooth transitions for fullscreen */
+  html:-webkit-full-screen {
+    transition: all 0.3s ease;
+  }
+
+  html:-moz-full-screen {
+    transition: all 0.3s ease;
+  }
+
+  html:fullscreen {
+    transition: all 0.3s ease;
+  }
+
+  /* Enhance fullscreen UI */
+  :fullscreen .fullscreen-hide {
+    opacity: 0;
+    pointer-events: none;
+  }
 }
