@@ -32,7 +32,7 @@ export default function HomePage() {
               />
             </motion.div>
             <motion.p 
-              className="text-xl leading-8 text-muted-foreground text-balance max-w-3xl mx-auto mb-12"
+              className="text-base sm:text-xl leading-7 sm:leading-8 text-muted-foreground text-balance max-w-3xl mx-auto mb-12"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}

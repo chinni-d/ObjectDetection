@@ -128,57 +128,63 @@ export function Navigation() {
         <div className={`fixed inset-y-0 right-0 w-3/5 transform transition-transform duration-300 ease-out ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}>
-          <div className="flex h-full flex-col overflow-y-auto bg-background shadow-2xl border-l">
+          <div className="flex h-full flex-col overflow-y-auto bg-background/95 backdrop-blur-md shadow-2xl border-l border-border/50">
             {/* Header */}
-            <div className="px-4 py-4 border-b border-border">
+            <div className="px-6 py-6 border-b border-border/30">
               <div className="flex items-center justify-between">
                 <Link 
                   href="/" 
-                  className="-m-1.5 p-1.5 flex items-center gap-2" 
+                  className="-m-1.5 p-1.5 flex items-center gap-3" 
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <Eye className="h-5 w-5 text-primary" />
-                  <span className="text-base font-bold">VisionAI</span>
+                  <Eye className="h-6 w-6 text-primary" />
+                  <span className="text-lg font-bold">VisionAI</span>
                 </Link>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="-m-2.5 rounded-md p-2.5 hover:bg-muted"
+                  className="-m-2.5 rounded-md p-2.5 hover:bg-muted/50"
                 >
                   <span className="sr-only">Close menu</span>
-                  <X className="h-5 w-5" aria-hidden="true" />
+                  <X className="h-6 w-6" aria-hidden="true" />
                 </Button>
               </div>
             </div>
             
             {/* Navigation links */}
-            <div className="flex-1 px-4 py-4">
-              <div className="space-y-1">
-                {navigation.map((item) => (
+            <div className="flex-1 px-6 py-6">
+              <nav className="space-y-2">
+                {navigation.map((item, index) => (
                   <Link
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      "block rounded-lg px-3 py-2.5 text-sm font-medium transition-all duration-200 hover:bg-muted hover:translate-x-1",
+                      "group flex items-center rounded-xl px-4 py-3 text-base font-medium transition-all duration-200",
                       pathname === item.href 
-                        ? "text-primary bg-primary/10 border-l-2 border-primary" 
-                        : "text-foreground hover:text-primary",
+                        ? "text-primary bg-primary/10 border border-primary/20 shadow-sm" 
+                        : "text-foreground hover:text-primary hover:bg-muted/50 hover:translate-x-1",
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
+                    <span className={cn(
+                      "w-2 h-2 rounded-full mr-3 transition-all duration-200",
+                      pathname === item.href 
+                        ? "bg-primary" 
+                        : "bg-muted-foreground/30 group-hover:bg-primary/60"
+                    )} />
                     {item.name}
                   </Link>
                 ))}
-              </div>
+              </nav>
               
-              {/* Action button */}
-              <div className="mt-6 pt-4 border-t border-border">
-                <Button asChild className="w-full h-10 text-sm font-medium">
-                  <Link href="/detection" onClick={() => setMobileMenuOpen(false)}>
-                    Start Detection
-                  </Link>
-                </Button>
+              {/* Separator */}
+              <div className="my-6 border-t border-border/30"></div>
+              
+              {/* Theme toggle section */}
+              <div className="flex items-center justify-between px-4 py-2">
+                <span className="text-sm font-medium text-muted-foreground">Theme</span>
+                <ThemeToggle />
               </div>
             </div>
           </div>
