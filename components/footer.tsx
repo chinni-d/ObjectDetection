@@ -13,7 +13,7 @@ export function Footer() {
           {/* Built with - Right side */}
           <div>
             <p className="text-sm text-muted-foreground">
-              Built with 💛 Next.js and AI technologies.
+              Built with 💛 using Next.js and AI technologies.
             </p>
           </div>
         </div>

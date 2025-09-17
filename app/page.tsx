@@ -202,7 +202,7 @@ export default function HomePage() {
                         whileHover={{ x: 5 }}
                         transition={{ duration: 0.2 }}
                       >
-                        Multiple Models
+                        Optimized Model
                       </motion.span>
                     </CardTitle>
                   </CardHeader>
@@ -214,8 +214,8 @@ export default function HomePage() {
                       viewport={{ once: true }}
                     >
                       <CardDescription className="text-muted-foreground leading-relaxed">
-                        Choose from various pre-trained models optimized for different use cases, from general object
-                        detection to specialized applications.
+                        Powered by a single, highly-optimized AI model fine-tuned for maximum performance and accuracy
+                        across diverse object detection scenarios.
                       </CardDescription>
                     </motion.div>
                   </CardContent>

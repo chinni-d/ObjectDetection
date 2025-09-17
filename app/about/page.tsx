@@ -33,6 +33,7 @@ const techStack = [
       { name: "Python" },
       { name: "API Routes" },
       { name: "WebRTC" },
+      { name: "WebSockets" },
     ],
   },
   {
@@ -122,7 +123,7 @@ export default function AboutPage() {
             </CardHeader>
             <CardContent className="space-y-4">
               <motion.p 
-                className="text-muted-foreground leading-relaxed text-base"
+                className="text-muted-foreground leading-relaxed text-sm"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -134,7 +135,7 @@ export default function AboutPage() {
                 object detection into their workflows without requiring deep machine learning expertise.
               </motion.p>
               <motion.p 
-                className="text-muted-foreground leading-relaxed text-base"
+                className="text-muted-foreground leading-relaxed text-sm"
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -143,6 +144,85 @@ export default function AboutPage() {
                 By combining state-of-the-art neural networks with an intuitive user interface, we're making it possible
                 for anyone to harness the power of AI-driven video analysis.
               </motion.p>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+         {/* Architecture Overview */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          whileHover={{ scale: 1.02 }}
+        >
+          <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <motion.div
+                  whileHover={{ rotate: 360, scale: 1.1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <Cpu className="h-5 w-5 text-primary" />
+                </motion.div>
+                System Architecture
+              </CardTitle>
+              <CardDescription>How our platform processes and analyzes video content</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                {[
+                  {
+                    icon: Globe,
+                    title: "Input Processing",
+                    description: "Video streams are captured and preprocessed using WebRTC and FastAPI"
+                  },
+                  {
+                    icon: Brain,
+                    title: "AI Analysis",
+                    description: "Videos are analyzed using optimized YOLO models running on edge servers"
+                  },
+                  {
+                    icon: Zap,
+                    title: "Real-time Results",
+                    description: "Detection results are streamed back with bounding boxes and confidence scores"
+                  }
+                ].map((step, index) => (
+                  <motion.div 
+                    key={index}
+                    className="text-center space-y-2"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                    whileHover={{ scale: 1.05 }}
+                  >
+                    <motion.div 
+                      className="p-3 rounded-lg bg-primary/10 w-fit mx-auto"
+                      whileHover={{ rotate: 360, scale: 1.1 }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <step.icon className="h-6 w-6 text-primary" />
+                    </motion.div>
+                    <motion.h3 
+                      className="font-semibold text-foreground"
+                      whileHover={{ color: 'hsl(var(--primary))' }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      {step.title}
+                    </motion.h3>
+                    <motion.p 
+                      className="text-sm text-muted-foreground"
+                      initial={{ opacity: 0 }}
+                      whileInView={{ opacity: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: (index * 0.2) + 0.3 }}
+                    >
+                      {step.description}
+                    </motion.p>
+                  </motion.div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </motion.div>
@@ -188,7 +268,7 @@ export default function AboutPage() {
                   </CardHeader>
                   <CardContent>
                     <motion.p 
-                      className="text-muted-foreground leading-relaxed"
+                      className="text-muted-foreground leading-relaxed text-sm"
                       initial={{ opacity: 0 }}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
@@ -277,84 +357,7 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* Architecture Overview */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          whileHover={{ scale: 1.02 }}
-        >
-          <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <motion.div
-                  whileHover={{ rotate: 360, scale: 1.1 }}
-                  transition={{ duration: 0.3 }}
-                >
-                  <Cpu className="h-5 w-5 text-primary" />
-                </motion.div>
-                System Architecture
-              </CardTitle>
-              <CardDescription>How our platform processes and analyzes video content</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                {[
-                  {
-                    icon: Globe,
-                    title: "Input Processing",
-                    description: "Video streams are captured and preprocessed using WebRTC and canvas APIs"
-                  },
-                  {
-                    icon: Brain,
-                    title: "AI Analysis",
-                    description: "Videos are analyzed using optimized YOLO models running on edge servers"
-                  },
-                  {
-                    icon: Zap,
-                    title: "Real-time Results",
-                    description: "Detection results are streamed back with bounding boxes and confidence scores"
-                  }
-                ].map((step, index) => (
-                  <motion.div 
-                    key={index}
-                    className="text-center space-y-2"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                    whileHover={{ scale: 1.05 }}
-                  >
-                    <motion.div 
-                      className="p-3 rounded-lg bg-primary/10 w-fit mx-auto"
-                      whileHover={{ rotate: 360, scale: 1.1 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <step.icon className="h-6 w-6 text-primary" />
-                    </motion.div>
-                    <motion.h3 
-                      className="font-semibold text-foreground"
-                      whileHover={{ color: 'hsl(var(--primary))' }}
-                      transition={{ duration: 0.2 }}
-                    >
-                      {step.title}
-                    </motion.h3>
-                    <motion.p 
-                      className="text-sm text-muted-foreground"
-                      initial={{ opacity: 0 }}
-                      whileInView={{ opacity: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.6, delay: (index * 0.2) + 0.3 }}
-                    >
-                      {step.description}
-                    </motion.p>
-                  </motion.div>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
-        </motion.div>
+       
 
         <div className="space-y-6">
           <motion.div 
