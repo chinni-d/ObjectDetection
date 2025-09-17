@@ -12,6 +12,7 @@ import { FullscreenWrapper } from "@/components/fullscreen-wrapper"
 import { Suspense } from "react"
 import "./globals.css"
 
+
 export const metadata: Metadata = {
   title: "VisionAI",
   description: "Professional video-based object detection powered by AI",
