@@ -126,11 +126,14 @@ export function DetectionInterface() {
     }
   }, [])
 
-  const startCamera = async () => {
+  const startCamera = async (selectedFacingMode?: 'user' | 'environment') => {
     console.log("🚀 Starting camera...")
     setError(null)
     setIsLoading(true)
     setLoadingAction('starting')
+    
+    // Use the selected facing mode or the current state
+    const cameraMode = selectedFacingMode || facingMode
     
     try {
       // Get camera access
@@ -139,7 +142,7 @@ export function DetectionInterface() {
           width: { ideal: 640 },
           height: { ideal: 480 },
           frameRate: { ideal: 15 },
-          facingMode: facingMode
+          facingMode: cameraMode
         },
         audio: false
       })
@@ -191,7 +194,7 @@ export function DetectionInterface() {
 
   const selectCameraAndStart = (selectedFacingMode: 'user' | 'environment') => {
     setFacingMode(selectedFacingMode)
-    startCamera()
+    startCamera(selectedFacingMode)
   }
 
   const stopCamera = async () => {
