@@ -214,18 +214,17 @@ export function DetectionInterface() {
   }
 
   const flipCamera = async () => {
+    // Toggle facing mode first
+    const newFacingMode = facingMode === 'user' ? 'environment' : 'user'
+    setFacingMode(newFacingMode)
+    
     if (isStreamActive) {
       // Stop current stream
       await stopCamera()
-      // Toggle facing mode
-      setFacingMode(prev => prev === 'user' ? 'environment' : 'user')
-      // Wait a bit then restart with new facing mode
+      // Restart with new facing mode immediately
       setTimeout(() => {
         startCamera()
-      }, 500)
-    } else {
-      // Just toggle the mode for next start
-      setFacingMode(prev => prev === 'user' ? 'environment' : 'user')
+      }, 100)
     }
   }
 
