@@ -274,12 +274,13 @@ export function DetectionInterface() {
   }, [])
 
   return (
-    <div className="space-y-6">
-      <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="space-y-6">
+        <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Camera className="h-5 w-5" />
-            Smart AI Cam Detection
+            Smart Cam Detection
             <div className="flex items-center gap-2 ml-auto">
               {isConnected ? (
                 <div className="flex items-center gap-1 text-green-600">
@@ -337,13 +338,14 @@ export function DetectionInterface() {
               </div>
             </div>
           ) : (
-            <div className="flex flex-col sm:flex-row justify-start gap-3 sm:gap-4">
-              <Button
-                onClick={handleStartDetection}
-                variant={isStreamActive ? "destructive" : "default"}
-                size="lg"
-                className="gap-2 w-full sm:w-auto cursor-pointer"
-                disabled={isLoading}
+            <div className="flex flex-col sm:flex-row sm:justify-start gap-3 sm:gap-4">
+              <div className="sm:inline-flex">
+                <Button
+                  onClick={handleStartDetection}
+                  variant={isStreamActive ? "destructive" : "default"}
+                  size="lg"
+                  className="gap-2 w-full sm:w-auto cursor-pointer"
+                  disabled={isLoading}
               >
                 {isLoading ? (
                   <>
@@ -361,13 +363,14 @@ export function DetectionInterface() {
                     Start Camera Detection
                   </>
                 )}
-              </Button>
+                </Button>
+              </div>
             </div>
           )}
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
         {/* Original Camera Feed */}
         <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300 h-full">
           <CardHeader>
@@ -384,7 +387,7 @@ export function DetectionInterface() {
               />
               
               {!isStreamActive && (
-                <div className="absolute inset-0 flex items-center justify-center text-white">
+                <div className="absolute inset-0 flex items-center justify-center text-foreground">
                   <div className="text-center px-4">
                     <Camera className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-3 sm:mb-4 opacity-50" />
                     <p className="text-lg sm:text-xl mb-2">Camera Ready</p>
@@ -418,7 +421,7 @@ export function DetectionInterface() {
               />
               
               {!isStreamActive && (
-                <div className="absolute inset-0 flex items-center justify-center text-white">
+                <div className="absolute inset-0 flex items-center justify-center text-foreground">
                   <div className="text-center px-4">
                     <AlertCircle className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-3 sm:mb-4 opacity-50" />
                     <p className="text-lg sm:text-xl mb-2">Detection Feed</p>
@@ -440,6 +443,7 @@ export function DetectionInterface() {
 
       {/* Hidden canvases for processing */}
       <canvas ref={canvasRef} style={{ display: 'none' }} />
+      </div>
     </div>
   )
 }
