@@ -55,26 +55,24 @@ export function FullscreenWrapper({ children }: FullscreenWrapperProps) {
       {children}
       
       {/* Fullscreen info icon */}
-      {!isFullscreen && (
-        <div className="fixed bottom-4 right-4 z-40 group">
-          <div className="relative">
-            <button
-              onClick={() => setShowInstructions(true)}
-              className="p-2 bg-primary/10 hover:bg-primary/20 border border-primary/20 rounded-full cursor-pointer transition-all duration-200 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
-            >
-              <Info className="h-4 w-4 text-primary" />
-            </button>
-            
-            {/* Tooltip */}
-            <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200">
-              <div className="bg-black/90 dark:bg-white/95 text-white dark:text-black text-xs px-3 py-2 rounded-lg whitespace-nowrap backdrop-blur-sm border border-white/10 dark:border-black/10">
-                Click for instructions
-                <div className="absolute top-full right-3 w-0 h-0 border-l-2 border-r-2 border-t-4 border-transparent border-t-black/90 dark:border-t-white/95"></div>
-              </div>
+      <div className="fixed bottom-4 right-4 z-40 group">
+        <div className="relative">
+          <button
+            onClick={() => setShowInstructions(true)}
+            className="p-2 bg-primary/10 hover:bg-primary/20 border border-primary/20 rounded-full cursor-pointer transition-all duration-200 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+          >
+            <Info className="h-4 w-4 text-primary" />
+          </button>
+          
+          {/* Tooltip */}
+          <div className="absolute bottom-full right-0 mb-2 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200">
+            <div className="bg-black/90 dark:bg-white/95 text-white dark:text-black text-xs px-3 py-2 rounded-lg whitespace-nowrap backdrop-blur-sm border border-white/10 dark:border-black/10">
+              Click for instructions
+              <div className="absolute top-full right-3 w-0 h-0 border-l-2 border-r-2 border-t-4 border-transparent border-t-black/90 dark:border-t-white/95"></div>
             </div>
           </div>
         </div>
-      )}
+      </div>
 
       {/* Instructions Dialog */}
       {showInstructions && (
