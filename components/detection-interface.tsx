@@ -15,6 +15,7 @@ export function DetectionInterface() {
   const [fps, setFps] = useState(0)
   const [facingMode, setFacingMode] = useState<'user' | 'environment'>('user')
   const [isMobile, setIsMobile] = useState(false)
+  const [showCameraSelection, setShowCameraSelection] = useState(false)
   
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -154,6 +155,7 @@ export function DetectionInterface() {
             setIsStreamActive(true)
             setIsLoading(false)
             setLoadingAction(null)
+            setShowCameraSelection(false)
             
             // Connect WebSocket if not connected
             if (!wsRef.current || wsRef.current.readyState === WebSocket.CLOSED) {
@@ -173,7 +175,23 @@ export function DetectionInterface() {
       setError(err instanceof Error ? err.message : "Failed to access camera")
       setIsLoading(false)
       setLoadingAction(null)
+      setShowCameraSelection(false)
     }
+  }
+
+  const handleStartDetection = () => {
+    if (isMobile && !isStreamActive) {
+      setShowCameraSelection(true)
+    } else if (isStreamActive) {
+      stopCamera()
+    } else {
+      startCamera()
+    }
+  }
+
+  const selectCameraAndStart = (selectedFacingMode: 'user' | 'environment') => {
+    setFacingMode(selectedFacingMode)
+    startCamera()
   }
 
   const stopCamera = async () => {
@@ -279,51 +297,89 @@ export function DetectionInterface() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-col sm:flex-row justify-start gap-3 sm:gap-4">
-            <Button
-              onClick={isStreamActive ? stopCamera : startCamera}
-              variant={isStreamActive ? "destructive" : "default"}
-              size="lg"
-              className="gap-2 w-full sm:w-auto cursor-pointer"
-              disabled={isLoading}
-            >
-              {isLoading ? (
-                <>
-                  <Square className="h-4 w-4 animate-spin" />
-                  {loadingAction === 'starting' ? 'Starting...' : 'Stopping...'}
-                </>
-              ) : isStreamActive ? (
-                <>
-                  <Square className="h-4 w-4" />
-                  Stop Camera
-                </>
-              ) : (
-                <>
-                  <Play className="h-4 w-4" />
-                  Start Camera Detection
-                </>
-              )}
-            </Button>
-            
-            {isMobile && (
+          {isMobile && showCameraSelection && !isStreamActive ? (
+            <div className="space-y-4">
+              <p className="text-center text-sm text-muted-foreground mb-4">
+                Choose your preferred camera for detection:
+              </p>
+              <div className="flex flex-col gap-3">
+                <Button
+                  onClick={() => selectCameraAndStart('user')}
+                  variant="outline"
+                  size="lg"
+                  className="gap-2 w-full cursor-pointer"
+                  disabled={isLoading}
+                >
+                  <Camera className="h-4 w-4" />
+                  Front Camera
+                </Button>
+                <Button
+                  onClick={() => selectCameraAndStart('environment')}
+                  variant="outline"
+                  size="lg"
+                  className="gap-2 w-full cursor-pointer"
+                  disabled={isLoading}
+                >
+                  <Camera className="h-4 w-4" />
+                  Back Camera
+                </Button>
+                <Button
+                  onClick={() => setShowCameraSelection(false)}
+                  variant="ghost"
+                  size="sm"
+                  className="mt-2"
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex flex-col sm:flex-row justify-start gap-3 sm:gap-4">
               <Button
-                onClick={flipCamera}
-                variant="outline"
+                onClick={handleStartDetection}
+                variant={isStreamActive ? "destructive" : "default"}
                 size="lg"
                 className="gap-2 w-full sm:w-auto cursor-pointer"
                 disabled={isLoading}
-                title={`Switch to ${facingMode === 'user' ? 'back' : 'front'} camera`}
               >
-                <RotateCcw className="h-4 w-4" />
-                <span className="hidden sm:inline">
-                  {facingMode === 'user' ? 'Back Cam' : 'Front Cam'}
-                </span>
-                <span className="sm:hidden">
-                  {facingMode === 'user' ? 'Back Camera' : 'Front Camera'}
-                </span>
+                {isLoading ? (
+                  <>
+                    <Square className="h-4 w-4 animate-spin" />
+                    {loadingAction === 'starting' ? 'Starting...' : 'Stopping...'}
+                  </>
+                ) : isStreamActive ? (
+                  <>
+                    <Square className="h-4 w-4" />
+                    Stop Camera
+                  </>
+                ) : (
+                  <>
+                    <Play className="h-4 w-4" />
+                    Start Camera Detection
+                  </>
+                )}
               </Button>
-            )}
-          </div>
+              
+              {isMobile && isStreamActive && (
+                <Button
+                  onClick={flipCamera}
+                  variant="outline"
+                  size="lg"
+                  className="gap-2 w-full sm:w-auto cursor-pointer"
+                  disabled={isLoading}
+                  title={`Switch to ${facingMode === 'user' ? 'back' : 'front'} camera`}
+                >
+                  <RotateCcw className="h-4 w-4" />
+                  <span className="hidden sm:inline">
+                    {facingMode === 'user' ? 'Back Cam' : 'Front Cam'}
+                  </span>
+                  <span className="sm:hidden">
+                    {facingMode === 'user' ? 'Back Camera' : 'Front Camera'}
+                  </span>
+                </Button>
+              )}
+            </div>
+          )}
         </CardContent>
       </Card>
 
