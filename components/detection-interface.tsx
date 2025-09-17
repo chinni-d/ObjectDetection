@@ -4,7 +4,7 @@ import React, { useState, useRef, useCallback, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
-import { Camera, Play, Square, AlertCircle, Wifi, WifiOff } from "lucide-react"
+import { Camera, Play, Square, AlertCircle, Wifi, WifiOff, RotateCcw } from "lucide-react"
 
 export function DetectionInterface() {
   const [isStreamActive, setIsStreamActive] = useState(false)
@@ -13,6 +13,8 @@ export function DetectionInterface() {
   const [error, setError] = useState<string | null>(null)
   const [isConnected, setIsConnected] = useState(false)
   const [fps, setFps] = useState(0)
+  const [facingMode, setFacingMode] = useState<'user' | 'environment'>('user')
+  const [isMobile, setIsMobile] = useState(false)
   
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -135,7 +137,8 @@ export function DetectionInterface() {
         video: {
           width: { ideal: 640 },
           height: { ideal: 480 },
-          frameRate: { ideal: 15 }
+          frameRate: { ideal: 15 },
+          facingMode: facingMode
         },
         audio: false
       })
@@ -210,10 +213,43 @@ export function DetectionInterface() {
     console.log("✅ Camera stopped")
   }
 
+  const flipCamera = async () => {
+    if (isStreamActive) {
+      // Stop current stream
+      await stopCamera()
+      // Toggle facing mode
+      setFacingMode(prev => prev === 'user' ? 'environment' : 'user')
+      // Wait a bit then restart with new facing mode
+      setTimeout(() => {
+        startCamera()
+      }, 500)
+    } else {
+      // Just toggle the mode for next start
+      setFacingMode(prev => prev === 'user' ? 'environment' : 'user')
+    }
+  }
+
   // Cleanup on component unmount
   useEffect(() => {
     return () => {
       stopCamera()
+    }
+  }, [])
+
+  // Check if device is mobile
+  useEffect(() => {
+    const checkIfMobile = () => {
+      const userAgent = navigator.userAgent.toLowerCase()
+      const isMobileDevice = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent)
+      const isSmallScreen = window.innerWidth <= 768
+      setIsMobile(isMobileDevice || isSmallScreen)
+    }
+
+    checkIfMobile()
+    window.addEventListener('resize', checkIfMobile)
+    
+    return () => {
+      window.removeEventListener('resize', checkIfMobile)
     }
   }, [])
 
@@ -223,7 +259,7 @@ export function DetectionInterface() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Camera className="h-5 w-5" />
-            YOLO Live Camera Detection
+            Smart AI Camera Detection
             <div className="flex items-center gap-2 ml-auto">
               {isConnected ? (
                 <div className="flex items-center gap-1 text-green-600">
@@ -239,17 +275,17 @@ export function DetectionInterface() {
             </div>
           </CardTitle>
           <CardDescription>
-            Live object detection with client-side camera and YOLOv5 backend processing
+            Live object detection with client-side camera and AI backend processing
             {fps > 0 && <span className="ml-2 text-blue-600">• {fps} FPS</span>}
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="flex justify-start gap-4">
+          <div className="flex flex-col sm:flex-row justify-start gap-3 sm:gap-4">
             <Button
               onClick={isStreamActive ? stopCamera : startCamera}
               variant={isStreamActive ? "destructive" : "default"}
               size="lg"
-              className="gap-2"
+              className="gap-2 w-full sm:w-auto cursor-pointer"
               disabled={isLoading}
             >
               {isLoading ? (
@@ -269,15 +305,34 @@ export function DetectionInterface() {
                 </>
               )}
             </Button>
+            
+            {isMobile && (
+              <Button
+                onClick={flipCamera}
+                variant="outline"
+                size="lg"
+                className="gap-2 w-full sm:w-auto cursor-pointer"
+                disabled={isLoading}
+                title={`Switch to ${facingMode === 'user' ? 'back' : 'front'} camera`}
+              >
+                <RotateCcw className="h-4 w-4" />
+                <span className="hidden sm:inline">
+                  {facingMode === 'user' ? 'Back Cam' : 'Front Cam'}
+                </span>
+                <span className="sm:hidden">
+                  {facingMode === 'user' ? 'Back Camera' : 'Front Camera'}
+                </span>
+              </Button>
+            )}
           </div>
         </CardContent>
       </Card>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
         {/* Original Camera Feed */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">Camera Feed</CardTitle>
+            <CardTitle className="text-base sm:text-lg">Camera Feed</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="relative bg-black rounded-lg overflow-hidden" style={{aspectRatio: "4/3"}}>
@@ -291,10 +346,10 @@ export function DetectionInterface() {
               
               {!isStreamActive && (
                 <div className="absolute inset-0 flex items-center justify-center text-white">
-                  <div className="text-center">
-                    <Camera className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                    <p className="text-xl mb-2">Camera Ready</p>
-                    <p className="text-sm opacity-75">Click "Start Camera Detection" to begin</p>
+                  <div className="text-center px-4">
+                    <Camera className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-3 sm:mb-4 opacity-50" />
+                    <p className="text-lg sm:text-xl mb-2">Camera Ready</p>
+                    <p className="text-xs sm:text-sm opacity-75">Click "Start Camera Detection" to begin</p>
                   </div>
                 </div>
               )}
@@ -305,7 +360,7 @@ export function DetectionInterface() {
         {/* Processed Feed with Detections */}
         <Card>
           <CardHeader>
-            <CardTitle className="text-lg">YOLO Detections</CardTitle>
+            <CardTitle className="text-base sm:text-lg">AI Detections</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="relative bg-black rounded-lg overflow-hidden" style={{aspectRatio: "4/3"}}>
@@ -316,18 +371,18 @@ export function DetectionInterface() {
               />
               
               {isStreamActive && (
-                <div className="absolute top-4 left-4 bg-red-600 text-white px-3 py-1 rounded text-sm font-medium flex items-center gap-2">
-                  <div className="w-2 h-2 bg-white rounded-full animate-pulse"></div>
+                <div className="absolute top-2 sm:top-4 left-2 sm:left-4 bg-red-600 text-white px-2 sm:px-3 py-1 rounded text-xs sm:text-sm font-medium flex items-center gap-1 sm:gap-2">
+                  <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-white rounded-full animate-pulse"></div>
                   LIVE DETECTION
                 </div>
               )}
               
               {!isStreamActive && (
                 <div className="absolute inset-0 flex items-center justify-center text-white">
-                  <div className="text-center">
-                    <AlertCircle className="h-16 w-16 mx-auto mb-4 opacity-50" />
-                    <p className="text-xl mb-2">Detection Feed</p>
-                    <p className="text-sm opacity-75">Start camera to see YOLO detections</p>
+                  <div className="text-center px-4">
+                    <AlertCircle className="h-12 w-12 sm:h-16 sm:w-16 mx-auto mb-3 sm:mb-4 opacity-50" />
+                    <p className="text-lg sm:text-xl mb-2">Detection Feed</p>
+                    <p className="text-xs sm:text-sm opacity-75">Start camera to see AI detections</p>
                   </div>
                 </div>
               )}
