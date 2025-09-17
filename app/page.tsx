@@ -41,7 +41,7 @@ export default function HomePage() {
               unprecedented accuracy and speed.
             </motion.p>
             <motion.div 
-              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6"
+              className="flex flex-row items-center justify-center gap-3 sm:gap-6"
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.6 }}
@@ -49,8 +49,9 @@ export default function HomePage() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="flex-1 sm:flex-none"
               >
-                <Button asChild size="lg" className="gap-2 min-w-[160px]">
+                <Button asChild size="lg" className="gap-2 w-full sm:min-w-[160px]">
                   <Link href="/detection">
                     <motion.div
                       animate={{ rotate: [0, 360] }}
@@ -65,8 +66,9 @@ export default function HomePage() {
               <motion.div
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
+                className="flex-1 sm:flex-none"
               >
-                <Button variant="outline" size="lg" className="min-w-[160px] text-foreground border-border hover:bg-muted hover:text-foreground dark:hover:text-foreground hover:dark:bg-primary/80" asChild>
+                <Button variant="outline" size="lg" className="w-full sm:min-w-[160px] text-foreground border-border hover:bg-muted hover:text-foreground dark:hover:text-foreground hover:dark:bg-primary/80" asChild>
                   <Link href="/about">
                     Learn More
                     <motion.div

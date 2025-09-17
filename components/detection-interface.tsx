@@ -275,11 +275,11 @@ export function DetectionInterface() {
 
   return (
     <div className="space-y-6">
-      <Card>
+      <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Camera className="h-5 w-5" />
-            Smart AI Camera Detection
+            Smart AI Cam Detection
             <div className="flex items-center gap-2 ml-auto">
               {isConnected ? (
                 <div className="flex items-center gap-1 text-green-600">
@@ -289,7 +289,7 @@ export function DetectionInterface() {
               ) : (
                 <div className="flex items-center gap-1 text-red-600">
                   <WifiOff className="h-4 w-4" />
-                  <span className="text-sm">Disconnected</span>
+                    <span className="text-xs sm:text-sm">Disconnected</span>
                 </div>
               )}
             </div>
@@ -369,7 +369,7 @@ export function DetectionInterface() {
 
       <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 sm:gap-6">
         {/* Original Camera Feed */}
-        <Card>
+        <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300 h-full">
           <CardHeader>
             <CardTitle className="text-base sm:text-lg">Camera Feed</CardTitle>
           </CardHeader>
@@ -397,7 +397,7 @@ export function DetectionInterface() {
         </Card>
 
         {/* Processed Feed with Detections */}
-        <Card>
+        <Card className="bg-primary/5 border-primary/50 hover:bg-primary/10 hover:border-primary/70 transition-all duration-300 h-full">
           <CardHeader>
             <CardTitle className="text-base sm:text-lg">AI Detections</CardTitle>
           </CardHeader>
