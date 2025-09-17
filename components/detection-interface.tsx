@@ -362,25 +362,6 @@ export function DetectionInterface() {
                   </>
                 )}
               </Button>
-              
-              {isMobile && isStreamActive && (
-                <Button
-                  onClick={flipCamera}
-                  variant="outline"
-                  size="lg"
-                  className="gap-2 w-full sm:w-auto cursor-pointer"
-                  disabled={isLoading}
-                  title={`Switch to ${facingMode === 'user' ? 'back' : 'front'} camera`}
-                >
-                  <RotateCcw className="h-4 w-4" />
-                  <span className="hidden sm:inline">
-                    {facingMode === 'user' ? 'Back Cam' : 'Front Cam'}
-                  </span>
-                  <span className="sm:hidden">
-                    {facingMode === 'user' ? 'Back Camera' : 'Front Camera'}
-                  </span>
-                </Button>
-              )}
             </div>
           )}
         </CardContent>
