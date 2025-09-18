@@ -49,6 +49,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link href="https://fonts.googleapis.com/css2?family=Allison&family=Calligraffitti&family=Caveat:wght@400..700&family=Cedarville+Cursive&family=Cinzel:wght@400..900&family=Courgette&family=Edu+AU+VIC+WA+NT+Arrows:wght@400..700&family=Edu+AU+VIC+WA+NT+Dots:wght@400..700&family=Homemade+Apple&family=Island+Moments&family=Knewave&family=Merienda:wght@300..900&family=Monoton&family=Nosifer&family=Playwrite+DK+Loopet:wght@100..400&family=Playwrite+IS:wght@100..400&family=Qwitcher+Grypen:wght@400;700&family=Slabo+27px&family=Story+Script&family=Tomorrow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Turret+Road:wght@200;300;400;500;700;800&family=Vast+Shadow&display=swap" rel="stylesheet" />
+      </head>
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           <MobileThemeMeta />

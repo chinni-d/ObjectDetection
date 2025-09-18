@@ -7,6 +7,7 @@ import Image from "next/image"
 import { Brain, Zap, Shield, Code, Cpu, Globe, ArrowRight, Target, User, Github, Linkedin, Mail, ExternalLink } from "lucide-react"
 import { SparklesText } from "@/components/sparkles-text"
 import { motion } from "framer-motion"
+import { TextShimmer } from "@/components/text-shimmer"
 
 const techStack = [
   {
@@ -399,13 +400,13 @@ export default function AboutPage() {
                   </motion.div>
                   <div className="flex-1">
                     <motion.h3 
-                      className="text-xl font-semibold mb-2"
+                      className="text-xl font-semibold mb-2 qwitcher-grypen-regular"
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
                       transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                      Manikanta Darapureddy
+                      <TextShimmer text="Manikanta Darapureddy" />
                     </motion.h3>
                     <motion.p 
                       className="text-muted-foreground mb-2"
