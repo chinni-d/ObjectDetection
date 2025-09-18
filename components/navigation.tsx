@@ -23,19 +23,20 @@ export function Navigation() {
     left: 0,
     opacity: 0,
   })
+  const headerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     const updateUnderline = () => {
-      if (!navRef.current) return
+      if (!navRef.current || !headerRef.current) return
 
       const activeLink = navRef.current.querySelector(`[data-path="${pathname}"]`) as HTMLElement
       if (activeLink) {
-        const navRect = navRef.current.getBoundingClientRect()
+        const headerRect = headerRef.current.getBoundingClientRect()
         const linkRect = activeLink.getBoundingClientRect()
         
         setUnderlineStyle({
           width: linkRect.width,
-          left: linkRect.left - navRect.left,
+          left: linkRect.left - headerRect.left,
           opacity: 1,
         })
       } else {
@@ -59,7 +60,7 @@ export function Navigation() {
 
   return (
     <>
-      <header className="sticky top-0 z-40 w-full border-b border-border/80 dark:border-white/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+      <header ref={headerRef} className="sticky top-0 z-40 w-full border-b border-border/80 dark:border-white/10 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 relative">
         <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
@@ -79,30 +80,20 @@ export function Navigation() {
               <Menu className="h-6 w-6" aria-hidden="true" />
             </Button>
           </div>
-          <div className="hidden lg:flex lg:gap-x-6 relative" ref={navRef}>
+          <div className="hidden lg:flex lg:gap-x-6" ref={navRef}>
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 data-path={item.href}
                 className={cn(
-                  "text-sm font-semibold leading-4 transition-colors hover:text-primary relative py-2 px-1",
-                  pathname === item.href ? "text-primary" : "text-muted-foreground",
+                  "text-sm font-semibold leading-4 transition-all duration-300 hover:text-primary relative py-2 px-3 hover:scale-105",
+                  pathname === item.href ? "text-primary" : "text-muted-foreground hover:text-primary",
                 )}
               >
                 {item.name}
               </Link>
             ))}
-            
-            {/* Animated underline */}
-            <div
-              className="absolute bottom-0 h-0.5 bg-primary transition-all duration-300 ease-out"
-              style={{
-                width: `${underlineStyle.width}px`,
-                left: `${underlineStyle.left}px`,
-                opacity: underlineStyle.opacity,
-              }}
-            />
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end lg:items-center lg:gap-4">
             <ThemeToggle />
@@ -111,6 +102,29 @@ export function Navigation() {
             </Button>
           </div>
         </nav>
+        
+        {/* Enhanced animated underline on header border */}
+        <div
+          className="absolute bottom-0 h-1 bg-gradient-to-r from-primary/80 via-primary to-primary/80 transition-all duration-500 ease-out rounded-full shadow-lg shadow-primary/30 z-10"
+          style={{
+            width: `${underlineStyle.width}px`,
+            left: `${underlineStyle.left}px`,
+            opacity: underlineStyle.opacity,
+            transform: 'translateY(1px)',
+            filter: 'blur(0.5px)',
+          }}
+        />
+        {/* Glow effect */}
+        <div
+          className="absolute bottom-0 h-0.5 bg-primary transition-all duration-500 ease-out rounded-full opacity-60 z-10"
+          style={{
+            width: `${underlineStyle.width + 8}px`,
+            left: `${underlineStyle.left - 4}px`,
+            opacity: underlineStyle.opacity * 0.4,
+            transform: 'translateY(1px)',
+            filter: 'blur(2px)',
+          }}
+        />
       </header>
 
       {/* Mobile menu overlay */}
