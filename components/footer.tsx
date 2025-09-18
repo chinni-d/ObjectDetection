@@ -6,7 +6,7 @@ export function Footer() {
           {/* Copyright - Left side */}
           <div>
             <p className="text-sm text-muted-foreground">
-              © 2025 AI Chatbot. All rights reserved.
+              © {new Date().getFullYear()} VisionAI. All rights reserved.
             </p>
           </div>
           
