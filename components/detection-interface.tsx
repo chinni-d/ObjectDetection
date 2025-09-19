@@ -302,38 +302,38 @@ export function DetectionInterface() {
         </CardHeader>
         <CardContent>
           {isMobile && showCameraSelection && !isStreamActive ? (
-            <div className="space-y-4">
+            <div className="space-y-4 w-full">
               <p className="text-center text-sm text-muted-foreground mb-4">
                 Choose your preferred camera for detection:
               </p>
-              <div className="flex flex-col gap-3">
-                <div className="flex gap-3">
+              <div className="flex flex-col gap-3 w-full overflow-hidden">
+                <div className="flex gap-1 w-full">
                   <Button
                     onClick={() => selectCameraAndStart('user')}
                     variant="outline"
-                    size="lg"
-                    className="gap-2 flex-1 cursor-pointer"
+                    size="sm"
+                    className="flex-1 cursor-pointer px-1 py-2 text-xs min-w-0 max-w-[48%]"
                     disabled={isLoading}
                   >
-                    <Camera className="h-4 w-4" />
-                    Front Camera
+                    <Camera className="h-3 w-3 mr-1 flex-shrink-0" />
+                    <span className="truncate">Front</span>
                   </Button>
                   <Button
                     onClick={() => selectCameraAndStart('environment')}
                     variant="outline"
-                    size="lg"
-                    className="gap-2 flex-1 cursor-pointer"
+                    size="sm"
+                    className="flex-1 cursor-pointer px-1 py-2 text-xs min-w-0 max-w-[48%]"
                     disabled={isLoading}
                   >
-                    <Camera className="h-4 w-4" />
-                    Back Camera
+                    <Camera className="h-3 w-3 mr-1 flex-shrink-0" />
+                    <span className="truncate">Back</span>
                   </Button>
                 </div>
                 <Button
                   onClick={() => setShowCameraSelection(false)}
                   variant="ghost"
                   size="sm"
-                  className="mt-2"
+                  className="mt-2 w-full"
                 >
                   Cancel
                 </Button>
