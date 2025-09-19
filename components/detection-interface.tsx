@@ -307,26 +307,28 @@ export function DetectionInterface() {
                 Choose your preferred camera for detection:
               </p>
               <div className="flex flex-col gap-3">
-                <Button
-                  onClick={() => selectCameraAndStart('user')}
-                  variant="outline"
-                  size="lg"
-                  className="gap-2 w-full cursor-pointer"
-                  disabled={isLoading}
-                >
-                  <Camera className="h-4 w-4" />
-                  Front Camera
-                </Button>
-                <Button
-                  onClick={() => selectCameraAndStart('environment')}
-                  variant="outline"
-                  size="lg"
-                  className="gap-2 w-full cursor-pointer"
-                  disabled={isLoading}
-                >
-                  <Camera className="h-4 w-4" />
-                  Back Camera
-                </Button>
+                <div className="flex gap-3">
+                  <Button
+                    onClick={() => selectCameraAndStart('user')}
+                    variant="outline"
+                    size="lg"
+                    className="gap-2 flex-1 cursor-pointer"
+                    disabled={isLoading}
+                  >
+                    <Camera className="h-4 w-4" />
+                    Front Camera
+                  </Button>
+                  <Button
+                    onClick={() => selectCameraAndStart('environment')}
+                    variant="outline"
+                    size="lg"
+                    className="gap-2 flex-1 cursor-pointer"
+                    disabled={isLoading}
+                  >
+                    <Camera className="h-4 w-4" />
+                    Back Camera
+                  </Button>
+                </div>
                 <Button
                   onClick={() => setShowCameraSelection(false)}
                   variant="ghost"
