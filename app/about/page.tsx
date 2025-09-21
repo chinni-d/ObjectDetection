@@ -206,7 +206,8 @@ export default function AboutPage() {
                       <step.icon className="h-6 w-6 text-primary" />
                     </motion.div>
                     <motion.h3 
-                      className="font-semibold text-foreground"
+                      className="font-semibold text-foreground dark:!text-white dark:!font-bold"
+                      style={{ color: 'var(--foreground)' }}
                       whileHover={{ color: 'hsl(var(--primary))' }}
                       transition={{ duration: 0.2 }}
                     >
