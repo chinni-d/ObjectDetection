@@ -26,10 +26,16 @@ export function DetectionInterface() {
   const fpsCounterRef = useRef(0)
   const fpsTimeRef = useRef(Date.now())
 
-  // WebSocket URL - Production deployment
-  const WS_URL = "wss://objectdetection-cyafhnf8fehpdzb2.centralindia-01.azurewebsites.net/ws/detection"
+  // WebSocket URL from environment variables
+  const WS_URL = process.env.NEXT_PUBLIC_WS_URL
 
   const connectWebSocket = useCallback(() => {
+    if (!WS_URL) {
+      console.error("❌ WebSocket URL not configured")
+      setError("WebSocket URL not configured in environment variables")
+      return
+    }
+    
     try {
       const ws = new WebSocket(WS_URL)
       
