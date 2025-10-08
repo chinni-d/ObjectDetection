@@ -68,7 +68,7 @@ export default function RootLayout({
               <div className="relative z-20 min-h-screen flex flex-col">
                 <Suspense fallback={<div>Loading...</div>}>
                   <Navigation />
-                  <main className="flex-1 relative">{children}</main>
+                  <main className="flex-1 relative pt-20">{children}</main>
                   <Footer />
                 </Suspense>
               </div>
