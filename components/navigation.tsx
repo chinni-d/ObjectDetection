@@ -87,8 +87,8 @@ export function Navigation() {
                 href={item.href}
                 data-path={item.href}
                 className={cn(
-                  "text-sm font-semibold leading-4 transition-all duration-300 hover:text-primary relative py-2 px-3 hover:scale-105",
-                  pathname === item.href ? "text-primary" : "text-muted-foreground hover:text-primary",
+                  "text-sm font-medium leading-4 transition-colors duration-200 py-2 px-3",
+                  pathname === item.href ? "text-blue-600 dark:text-red-500" : "text-muted-foreground hover:text-blue-600 dark:hover:text-red-500",
                 )}
               >
                 {item.name}
@@ -103,26 +103,14 @@ export function Navigation() {
           </div>
         </nav>
         
-        {/* Enhanced animated underline on header border */}
+        {/* Simple underline */}
         <div
-          className="absolute bottom-0 h-1 bg-gradient-to-r from-primary/80 via-primary to-primary/80 transition-all duration-500 ease-out rounded-full shadow-lg shadow-primary/30 z-10"
+          className="absolute bottom-0 h-0.5 bg-blue-600 dark:bg-red-500 transition-all duration-300 ease-out"
           style={{
             width: `${underlineStyle.width}px`,
             left: `${underlineStyle.left}px`,
             opacity: underlineStyle.opacity,
             transform: 'translateY(1px)',
-            filter: 'blur(0.5px)',
-          }}
-        />
-        {/* Glow effect */}
-        <div
-          className="absolute bottom-0 h-0.5 bg-primary transition-all duration-500 ease-out rounded-full opacity-60 z-10"
-          style={{
-            width: `${underlineStyle.width + 8}px`,
-            left: `${underlineStyle.left - 4}px`,
-            opacity: underlineStyle.opacity * 0.4,
-            transform: 'translateY(1px)',
-            filter: 'blur(2px)',
           }}
         />
       </header>
@@ -174,19 +162,13 @@ export function Navigation() {
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      "group flex items-center rounded-xl px-4 py-3 text-base font-medium transition-all duration-200",
+                      "flex items-center px-4 py-3 text-base font-medium transition-colors duration-200",
                       pathname === item.href 
-                        ? "text-primary bg-primary/10 border border-primary/20 shadow-sm" 
-                        : "text-foreground hover:text-primary hover:bg-muted/50 hover:translate-x-1",
+                        ? "text-blue-600 dark:text-red-500" 
+                        : "text-muted-foreground hover:text-blue-600 dark:hover:text-red-500",
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
-                    <span className={cn(
-                      "w-2 h-2 rounded-full mr-3 transition-all duration-200",
-                      pathname === item.href 
-                        ? "bg-primary" 
-                        : "bg-muted-foreground/30 group-hover:bg-primary/60"
-                    )} />
                     {item.name}
                   </Link>
                 ))}
