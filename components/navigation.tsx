@@ -5,7 +5,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { Menu, X, Eye } from "lucide-react"
+import { Menu, X } from "lucide-react"
+import Image from "next/image"
 import { cn } from "@/lib/utils"
 
 const navigation = [
@@ -64,7 +65,7 @@ export function Navigation() {
         <nav className="mx-auto flex max-w-7xl items-center justify-between p-4 lg:px-8" aria-label="Global">
           <div className="flex lg:flex-1">
             <Link href="/" className="-m-1.5 p-1.5 flex items-center gap-2">
-              <Eye className="h-8 w-8 text-primary" />
+              <Image src="/logo.png" alt="VisionAI Logo" width={32} height={32} className="h-8 w-8 brightness-0 dark:brightness-100" />
               <span className="text-xl font-bold text-foreground">VisionAI</span>
             </Link>
           </div>
@@ -139,7 +140,7 @@ export function Navigation() {
                   className="-m-1.5 p-1.5 flex items-center gap-3" 
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  <Eye className="h-6 w-6 text-primary" />
+                  <Image src="/logo.png" alt="VisionAI Logo" width={24} height={24} className="h-6 w-6 brightness-0 dark:brightness-100" />
                   <span className="text-lg font-bold">VisionAI</span>
                 </Link>
                 <Button
