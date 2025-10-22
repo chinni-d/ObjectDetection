@@ -131,7 +131,7 @@ export function Navigation() {
         <div className={`fixed inset-y-0 right-0 w-3/5 transform transition-transform duration-300 ease-out ${
           mobileMenuOpen ? 'translate-x-0' : 'translate-x-full'
         }`}>
-          <div className="flex h-full flex-col overflow-y-auto bg-background/95 backdrop-blur-md shadow-2xl border-l border-border/50">
+          <div className="flex h-full flex-col overflow-y-auto bg-white/80 dark:bg-black/10 backdrop-blur-xl shadow-2xl border-l border-gray-200/50 dark:border-white/10 supports-[backdrop-filter]:bg-white/90 dark:supports-[backdrop-filter]:bg-black/5">
             {/* Header */}
             <div className="px-6 py-6 border-b border-border/30">
               <div className="flex items-center justify-between">
@@ -163,10 +163,10 @@ export function Navigation() {
                     key={item.name}
                     href={item.href}
                     className={cn(
-                      "flex items-center px-4 py-3 text-base font-medium transition-colors duration-200",
+                      "flex items-center px-4 py-3 text-base font-medium transition-all duration-200 rounded-lg",
                       pathname === item.href 
-                        ? "text-blue-600 dark:text-red-500" 
-                        : "text-muted-foreground hover:text-blue-600 dark:hover:text-red-500",
+                        ? "text-blue-600 dark:text-red-500 bg-blue-50 dark:bg-red-950/50" 
+                        : "text-muted-foreground hover:text-blue-600 dark:hover:text-red-500 hover:bg-blue-50 dark:hover:bg-red-950/30",
                     )}
                     onClick={() => setMobileMenuOpen(false)}
                   >
